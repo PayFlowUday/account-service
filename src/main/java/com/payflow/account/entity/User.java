@@ -17,22 +17,22 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.experimental.SuperBuilder;
 
 @Entity
-@Table(name = "users")
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder
+@SuperBuilder
 public class User extends Auditable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "user_id")
+    @Column(name = "userId")
     private Long userId;
 
-    @Column(name = "full_name", nullable = false)
+    @Column(name = "fullName", nullable = false)
     private String fullName;
 
     @Column(nullable = false, unique = true)
@@ -46,9 +46,9 @@ public class User extends Auditable {
     @Builder.Default
     private Role role = Role.USER;
 
-    @Column(name = "is_active", nullable = false)
+    @Column(name = "isActive", nullable = false)
     @Builder.Default
-    private boolean isActive = true;
+    private boolean active = true;
 
     @OneToOne(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private Wallet wallet;
