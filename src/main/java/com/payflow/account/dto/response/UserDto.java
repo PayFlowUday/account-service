@@ -1,21 +1,19 @@
 package com.payflow.account.dto.response;
 
+import com.payflow.account.utils.enums.Role;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
-import lombok.Getter;
+import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 
-@Getter
-@Setter
-@Builder
+@Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class RegistrationResponseDto {
-
-    private String message;
-    private long userId;
+@Builder
+public class UserDto {
+    private Long userId;
     private String fullName;
     private String email;
-
+    private Role role;
+    private boolean isActive;
 }

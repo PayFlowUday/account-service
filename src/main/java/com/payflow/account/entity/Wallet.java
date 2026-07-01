@@ -15,11 +15,11 @@ public class Wallet extends Auditable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "wallet_id")
+    @Column(name = "walletId")
     private Long walletId;
 
     @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id", nullable = false, unique = true)
+    @JoinColumn(name = "userId", nullable = false, unique = true)
     private User user;
 
     @Column(nullable = false, precision = 19, scale = 4)
