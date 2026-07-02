@@ -8,7 +8,6 @@ import lombok.Setter;
 
 @Getter
 @Setter
-@Builder
 @NoArgsConstructor
 @AllArgsConstructor
 public class RegistrationResponseDto {
@@ -17,5 +16,6 @@ public class RegistrationResponseDto {
     private long userId;
     private String fullName;
     private String email;
+    private WalletResponseDto wallet;
 
 }

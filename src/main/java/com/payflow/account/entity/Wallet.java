@@ -30,7 +30,7 @@ public class Wallet extends Auditable {
     @Builder.Default
     private String currency = "INR";
 
-    @Column(name = "is_active", nullable = false)
+    @Column(name = "isActive", nullable = false)
     @Builder.Default
     private boolean isActive = true;
 }
