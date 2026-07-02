@@ -18,5 +18,6 @@ public class LoginResponseDto {
     private String fullName;
     private Role role;
     private String token;
+    private String UserId;
 
 }
