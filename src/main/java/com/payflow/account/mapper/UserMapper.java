@@ -12,7 +12,7 @@ import org.mapstruct.MappingTarget;
 
 @Mapper(
         componentModel = "spring",
-        builder = @Builder(disableBuilder = true)
+        builder = @Builder(disableBuilder = true), uses = {WalletMapper.class}
 )
 public interface UserMapper {
 
@@ -35,6 +35,7 @@ public interface UserMapper {
     void updateEntity(RegisterRequest request, @MappingTarget User user);
 
     @Mapping(target = "message", constant = "User registered successfully")
+    @Mapping(target = "wallet", source = "wallet")
     RegistrationResponseDto toRegisterResponse(User user);
 
     UserDto toDto(User user);
