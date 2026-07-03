@@ -58,7 +58,8 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(Exception.class)
     public ResponseEntity<Map<String, Object>> handleGenericException(Exception ex) {
-        return createErrorResponse(HttpStatus.INTERNAL_SERVER_ERROR, "Something went wrong");
+        ex.printStackTrace(); // ← add this temporarily
+        return createErrorResponse(HttpStatus.INTERNAL_SERVER_ERROR, ex.getMessage()); // ← show actual message
     }
 
 
