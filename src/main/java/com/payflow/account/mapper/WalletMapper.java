@@ -1,10 +1,13 @@
 package com.payflow.account.mapper;
 
 import com.payflow.account.dto.response.WalletResponseDto;
+import com.payflow.account.dto.response.WalletTransactionResponseDto;
 import com.payflow.account.entity.Wallet;
 import org.mapstruct.Builder;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
+
+import java.math.BigDecimal;
 
 @Mapper(
         componentModel = "spring",
@@ -22,4 +25,8 @@ public interface WalletMapper {
     @Mapping(target = "createdAt", ignore = true)
     @Mapping(target = "updatedAt", ignore = true)
     Wallet toEntity(WalletResponseDto walletResponseDto);
+
+    @Mapping(target = "amount", ignore = true)
+    @Mapping(target = "transactionType", ignore = true)
+    WalletTransactionResponseDto toTransactionDto(Wallet wallet);
 }
