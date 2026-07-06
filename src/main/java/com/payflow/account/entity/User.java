@@ -17,22 +17,24 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import lombok.experimental.SuperBuilder;
+import java.time.Instant;
+
 
 @Entity
+@Table(name = "user")
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@SuperBuilder
+@Builder
 public class User extends Auditable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "userId")
+    @Column(name = "user_id")
     private Long userId;
 
-    @Column(name = "fullName", nullable = false)
+    @Column(name = "full_name", nullable = false)
     private String fullName;
 
     @Column(nullable = false, unique = true)
@@ -46,10 +48,27 @@ public class User extends Auditable {
     @Builder.Default
     private Role role = Role.USER;
 
-    @Column(name = "isActive", nullable = false)
+    @Column(name = "is_active", nullable = false)
     @Builder.Default
     private boolean active = true;
 
     @OneToOne(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private Wallet wallet;
+
+    @Column(name = "reset_token")
+    private String resetToken;
+
+    @Column(name = "reset_token_expiry")
+    private Instant resetTokenExpiry;
+
+    @Column(name = "failed_login_attempts", columnDefinition = "int default 0")
+    @Builder.Default
+    private int failedLoginAttempts = 0;
+
+    @Column(name = "is_locked", columnDefinition = "boolean default false")
+    @Builder.Default
+    private boolean isLocked = false;
+
+    @Column(name = "locked_at")
+    private Instant lockedAt;
 }

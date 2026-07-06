@@ -2,6 +2,7 @@ package com.payflow.account.exception.handler;
 
 import com.payflow.account.exception.EmailAlreadyExistsException;
 import com.payflow.account.exception.InsufficientBalanceException;
+import com.payflow.account.exception.InvalidTokenException;
 import com.payflow.account.exception.UserNotFoundException;
 import com.payflow.account.exception.InvalidCredentialsException;
 import com.payflow.account.exception.WalletInactiveException;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
+import javax.security.auth.login.AccountLockedException;
 import java.time.Instant;
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -71,6 +73,16 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(WalletInactiveException.class)
     public ResponseEntity<Map<String, Object>> handleWalletInactive(WalletInactiveException ex) {
+        return createErrorResponse(HttpStatus.BAD_REQUEST, ex.getMessage());
+    }
+
+    @ExceptionHandler(AccountLockedException.class)
+    public ResponseEntity<Map<String, Object>> handleAccountLocked(AccountLockedException ex) {
+        return createErrorResponse(HttpStatus.FORBIDDEN, ex.getMessage());
+    }
+
+    @ExceptionHandler(InvalidTokenException.class)
+    public ResponseEntity<Map<String, Object>> handleInvalidToken(InvalidTokenException ex) {
         return createErrorResponse(HttpStatus.BAD_REQUEST, ex.getMessage());
     }
 
