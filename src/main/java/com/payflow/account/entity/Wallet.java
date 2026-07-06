@@ -1,5 +1,6 @@
 package com.payflow.account.entity;
 
+import com.payflow.account.utils.enums.Currency;
 import jakarta.persistence.*;
 import lombok.*;
 import java.math.BigDecimal;
@@ -26,11 +27,13 @@ public class Wallet extends Auditable {
     @Builder.Default
     private BigDecimal balance = BigDecimal.ZERO;
 
-    @Column(nullable = false, length = 3)
-    @Builder.Default
-    private String currency = "INR";
 
     @Column(name = "isActive", nullable = false)
     @Builder.Default
     private boolean isActive = true;
+
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
+    @Builder.Default
+    private Currency currency = Currency.INR;
 }

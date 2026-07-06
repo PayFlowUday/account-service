@@ -1,8 +1,10 @@
 package com.payflow.account.exception.handler;
 
 import com.payflow.account.exception.EmailAlreadyExistsException;
+import com.payflow.account.exception.InsufficientBalanceException;
 import com.payflow.account.exception.UserNotFoundException;
 import com.payflow.account.exception.InvalidCredentialsException;
+import com.payflow.account.exception.WalletInactiveException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.FieldError;
@@ -60,6 +62,16 @@ public class GlobalExceptionHandler {
     public ResponseEntity<Map<String, Object>> handleGenericException(Exception ex) {
         ex.printStackTrace(); // ← add this temporarily
         return createErrorResponse(HttpStatus.INTERNAL_SERVER_ERROR, ex.getMessage()); // ← show actual message
+    }
+
+    @ExceptionHandler
+    public ResponseEntity<Map<String,Object>> insufficientBalanceException(InsufficientBalanceException insufficientBalanceException){
+        return createErrorResponse(HttpStatus.BAD_REQUEST,insufficientBalanceException.getMessage());
+    }
+
+    @ExceptionHandler(WalletInactiveException.class)
+    public ResponseEntity<Map<String, Object>> handleWalletInactive(WalletInactiveException ex) {
+        return createErrorResponse(HttpStatus.BAD_REQUEST, ex.getMessage());
     }
 
 

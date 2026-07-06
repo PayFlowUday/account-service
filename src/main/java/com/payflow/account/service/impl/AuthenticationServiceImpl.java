@@ -13,6 +13,7 @@ import com.payflow.account.repository.UserRepository;
 import com.payflow.account.repository.WalletRepository;
 import com.payflow.account.security.JwtService;
 import com.payflow.account.service.AuthenticationService;
+import com.payflow.account.utils.enums.Currency;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -50,7 +51,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
         Wallet wallet = Wallet.builder()
                 .user(user)
                 .balance(BigDecimal.ZERO)
-                .currency("INR")
+                .currency(Currency.INR)
                 .isActive(true)
                 .build();
         wallet = walletRepository.save(wallet);
